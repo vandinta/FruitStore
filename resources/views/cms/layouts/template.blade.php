@@ -27,6 +27,8 @@
     </div>
 
     @include('cms.layouts.js')
+
+    @yield('content_js')
     
   </body>
 </html>

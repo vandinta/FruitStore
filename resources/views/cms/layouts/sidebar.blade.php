@@ -17,14 +17,14 @@
           </div>
           <div class="profile-name">
             <h5 class="mb-0 font-weight-normal">Henry Klein</h5>
-            <span>Gold Member</span>
+            <span>Admin</span>
           </div>
         </div>
       </div>
     </li>
     <div class="dropdown-divider"></div>
     <li class="nav-item menu-items">
-      <a class="nav-link" href="index.html">
+      <a class="nav-link" href="{{ route('dashboard') }}">
         <span class="menu-icon">
           <i class="mdi mdi-speedometer"></i>
         </span>
@@ -32,7 +32,7 @@
       </a>
     </li>
     <li class="nav-item menu-items">
-      <a class="nav-link" href="#ui-basic">
+      <a class="nav-link" href="{{ route('product.index') }}">
         <span class="menu-icon">
           <i class="mdi mdi-laptop"></i>
         </span>

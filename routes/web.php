@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,15 +16,18 @@ use App\Http\Controllers\DashboardController;
 |
 */
 
-Route::get('/', function () {
-    return view('cms.layouts.template');
-});
+// Route::get('/', function () {
+//     return view('cms.dashboard');
+// });
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
+Route::resource('/product', ProductController::class);
+Route::get('/dashboard', function () {
+    return view('cms.dashboard');
+})->name('dashboard');
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/skill', [SkillController::class, 'index'])->name('skill');
     Route::get('/pengalaman', [PengalamanController::class, 'index'])->name('pengalaman');
     Route::get('/project', [ProjectController::class, 'index'])->name('project');

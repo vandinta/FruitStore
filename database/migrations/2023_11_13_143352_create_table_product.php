@@ -13,8 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('table_product', function (Blueprint $table) {
+        Schema::create('tb_product', function (Blueprint $table) {
             $table->id();
+            $table->string('product_name');
+            $table->string('img');
+            $table->string('price');
+            $table->integer('stok');
+            $table->enum('status', ['aktif', 'non-aktif'])->default('aktif');
             $table->timestamps();
         });
     }
@@ -26,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table_product');
+        Schema::dropIfExists('tb_product');
     }
 };
