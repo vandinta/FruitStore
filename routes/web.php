@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +16,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('cms.layouts.template');
+});
+
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/skill', [SkillController::class, 'index'])->name('skill');
+    Route::get('/pengalaman', [PengalamanController::class, 'index'])->name('pengalaman');
+    Route::get('/project', [ProjectController::class, 'index'])->name('project');
+    Route::get('/forminterested', [ForminterestedController::class, 'index'])->name('forminterested');
 });
