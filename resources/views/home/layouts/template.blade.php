@@ -3,7 +3,11 @@
 
 @include('home.layouts.head')
 
+@yield('content_head')
+
 <body>
+
+  @yield('popup')
 
   <!--PreLoader-->
   <div class="loader">
@@ -16,11 +20,11 @@
   @include('home.layouts.navbar')
 
   @yield('content')
-  
+
   @include('home.layouts.footer')
-  
+
   @include('home.layouts.js')
-  
+
   @yield('content_js')
 
 </body>

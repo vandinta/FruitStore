@@ -16,14 +16,25 @@ class CartController extends Controller
 
         $totalprice = 1 * $product['price'];
 
-        $cart = Cart::create([
-            'user_id' => $dataid,
-            'product_id' => $id,
-            'qty' => 1,
-            'total_price' => $totalprice,
-        ]);
+        $cart = Cart::where('product_id', $id)->first();
 
-        if ($product) {
+        if ($cart == null) {
+            $cart = Cart::create([
+                'user_id' => $dataid,
+                'product_id' => $id,
+                'qty' => 1,
+                'total_price' => $totalprice,
+            ]);
+        } else {
+            $input = [
+                'qty' => $cart['qty'] + 1,
+                'total_price' => $cart['total_price'] + $totalprice,
+            ];
+            
+            $cart->update($input);
+        }
+
+        if ($cart) {
             return redirect()->back();
         }
     }
@@ -53,7 +64,12 @@ class CartController extends Controller
             $subtotal += $harga;
         }
 
-        $adm = 25000;
+        if ($subtotal != 0) {
+            $adm = 25000;
+        } else {
+            $adm = 0;
+        }
+
         $total = $subtotal + $adm;
 
         return view('home.cart', compact('status', 'no', 'cart', 'subtotal', 'adm', 'total'));

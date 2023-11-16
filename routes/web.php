@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,10 +37,11 @@ Route::middleware('auth')->group(function () {
     });
     
     Route::get('/addcart/{id}/edit', [CartController::class, 'addcart'])->name('addcart.edit');
-    
     Route::resource('/cart', CartController::class);
-    Route::get('/user', [HomeController::class, 'index'])->name('user');
-    Route::get('/addcart', [HomeController::class, 'index'])->name('addcart');
-
+    
+    Route::get('/checkout', [OrderController::class, 'index'])->name('checkout');
+    Route::post('/checkout', [OrderController::class, 'checkout'])->name('order');
+    Route::post('/callback', [OrderController::class, 'callback']);
+    
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });

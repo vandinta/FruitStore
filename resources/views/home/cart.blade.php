@@ -90,7 +90,7 @@
             </tbody>
           </table>
           <div class="cart-buttons">
-            <a href="checkout.html" class="boxed-btn black">Check Out</a>
+            <a href="{{ route('checkout') }}" class="boxed-btn black">Check Out</a>
           </div>
         </div>
 

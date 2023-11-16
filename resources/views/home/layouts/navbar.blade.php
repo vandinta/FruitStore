@@ -22,12 +22,11 @@
                 <div class="header-icons">
                   @if ($status == 'login')
                   <a class="shopping-cart" href="{{ route("cart.index") }}"><i class="fas fa-shopping-cart"></i></a>
-                  <a class="shopping-cart" href="{{ route("user") }}"><i class="fas fa-user"></i></a>
+                  <a class="shopping-cart" href="{{ route("home") }}"><i class="fas fa-user"></i></a>
                   <a class="shopping-cart" href="{{ route("logout") }}"><i class="fas fa-right-from-bracket"></i></a>
                   @else
                   <a class="shopping-cart" href="{{ route("login.form") }}" style="color: white;"><i class="fas fa-right-to-bracket"></i></a>
                   @endif
-                  ?>
                 </div>
               </li>
             </ul>

@@ -29,11 +29,11 @@
             <div class="modal-body">
               <div class="form-group">
                 <label for="product_name">Name</label>
-                <input type="text" class="form-control" style="width: 1080px;" value="{{ $cart->product_name }}" disabled>
+                <input type="text" class="form-control" style="width: 1080px;" value="{{ $cart->product_name }}" readonly>
               </div>
               <div class="form-group">
                 <label for="price">Price</label>
-                <input type="number" class="form-control" style="width: 1080px;" id="price" value="{{ $cart->price }}" disabled>
+                <input type="number" class="form-control" style="width: 1080px;" id="price" value="{{ $cart->price }}" readonly>
               </div>
               <div class="form-group">
                 <label for="qty">QTY</label>
@@ -41,7 +41,7 @@
               </div>
               <div class="form-group">
                 <label for="total">Total</label>
-                <input type="number" class="form-control" style="width: 1080px;" id="total" name="total" value="{{ $cart->total_price }}" disabled>
+                <input type="number" class="form-control" style="width: 1080px;" id="total" name="total" value="{{ $cart->total_price }}" readonly>
                 <input type="hidden" id="total_price" name="total_price[]">
               </div>
             </div>
