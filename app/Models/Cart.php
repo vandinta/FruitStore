@@ -15,5 +15,6 @@ class Cart extends Model
         'user_id',
         'product_id',
         'qty',
+        'total_price',
     ];
 }

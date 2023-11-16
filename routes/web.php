@@ -2,8 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,20 +17,29 @@ use App\Http\Controllers\ProductController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('cms.dashboard');
-// });
-
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
-Route::resource('/product', ProductController::class);
-Route::get('/dashboard', function () {
-    return view('cms.dashboard');
-})->name('dashboard');
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register.form');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/shop', [HomeController::class, 'shop'])->name('shop');
+Route::get('/about', [HomeController::class, 'about'])->name('about');
+
 Route::middleware('auth')->group(function () {
-    Route::get('/skill', [SkillController::class, 'index'])->name('skill');
-    Route::get('/pengalaman', [PengalamanController::class, 'index'])->name('pengalaman');
-    Route::get('/project', [ProjectController::class, 'index'])->name('project');
-    Route::get('/forminterested', [ForminterestedController::class, 'index'])->name('forminterested');
+    Route::middleware(['role:admin'])->group(function () {
+        Route::get('/dashboard', function () {
+            return view('cms.dashboard');
+        })->name('dashboard');
+        Route::resource('/product', ProductController::class);
+    });
+    
+    Route::get('/addcart/{id}/edit', [CartController::class, 'addcart'])->name('addcart.edit');
+    
+    Route::resource('/cart', CartController::class);
+    Route::get('/user', [HomeController::class, 'index'])->name('user');
+    Route::get('/addcart', [HomeController::class, 'index'])->name('addcart');
+
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
