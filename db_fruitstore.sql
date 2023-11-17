@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 17 Nov 2023 pada 02.20
+-- Waktu pembuatan: 17 Nov 2023 pada 03.00
 -- Versi server: 10.4.17-MariaDB
 -- Versi PHP: 8.0.2
 
@@ -54,14 +54,14 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(163, '2014_10_12_000000_create_users_table', 1),
-(164, '2014_10_12_100000_create_password_resets_table', 1),
-(165, '2019_08_19_000000_create_failed_jobs_table', 1),
-(166, '2019_12_14_000001_create_personal_access_tokens_table', 1),
-(167, '2023_11_13_143352_create_table_product', 1),
-(168, '2023_11_13_143422_create_table_cart', 1),
-(169, '2023_11_16_131512_create_table_order', 1),
-(170, '2023_11_16_131519_create_table_orderitems', 1);
+(203, '2014_10_12_000000_create_users_table', 1),
+(204, '2014_10_12_100000_create_password_resets_table', 1),
+(205, '2019_08_19_000000_create_failed_jobs_table', 1),
+(206, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(207, '2023_11_13_143352_create_table_product', 1),
+(208, '2023_11_13_143422_create_table_cart', 1),
+(209, '2023_11_16_131512_create_table_order', 1),
+(210, '2023_11_16_131519_create_table_orderitems', 1);
 
 -- --------------------------------------------------------
 
@@ -119,6 +119,7 @@ CREATE TABLE `tb_cart` (
 CREATE TABLE `tb_order` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
+  `transaction_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `sub_price` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `admin_price` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `total_price` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -166,12 +167,12 @@ CREATE TABLE `tb_product` (
 --
 
 INSERT INTO `tb_product` (`id`, `product_name`, `img`, `price`, `stok`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Stroberi', 'stroberi.jpg', '24000', 24, 'aktif', '2023-11-17 01:20:03', '2023-11-17 01:20:03'),
-(2, 'Anggur', 'anggur.jpg', '49000', 20, 'aktif', '2023-11-17 01:20:03', '2023-11-17 01:20:03'),
-(3, 'Lemon', 'lemon.jpg', '45000', 10, 'aktif', '2023-11-17 01:20:03', '2023-11-17 01:20:03'),
-(4, 'Kiwi', 'kiwi.jpg', '90000', 2, 'non-aktif', '2023-11-17 01:20:03', '2023-11-17 01:20:03'),
-(5, 'Apel Hijau', 'apelhijau.jpg', '40000', 30, 'aktif', '2023-11-17 01:20:03', '2023-11-17 01:20:03'),
-(6, 'Raspberry', 'raspberry.jpg', '160000', 0, 'aktif', '2023-11-17 01:20:03', '2023-11-17 01:20:03');
+(1, 'Stroberi', 'stroberi.jpg', '24000', 24, 'aktif', '2023-11-17 01:59:59', '2023-11-17 01:59:59'),
+(2, 'Anggur', 'anggur.jpg', '49000', 20, 'aktif', '2023-11-17 01:59:59', '2023-11-17 01:59:59'),
+(3, 'Lemon', 'lemon.jpg', '45000', 10, 'aktif', '2023-11-17 01:59:59', '2023-11-17 01:59:59'),
+(4, 'Kiwi', 'kiwi.jpg', '90000', 2, 'non-aktif', '2023-11-17 01:59:59', '2023-11-17 01:59:59'),
+(5, 'Apel Hijau', 'apelhijau.jpg', '40000', 30, 'aktif', '2023-11-17 01:59:59', '2023-11-17 01:59:59'),
+(6, 'Raspberry', 'raspberry.jpg', '160000', 0, 'aktif', '2023-11-17 01:59:59', '2023-11-17 01:59:59');
 
 -- --------------------------------------------------------
 
@@ -194,8 +195,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `password`, `username`, `role`, `created_at`, `updated_at`) VALUES
-(1, 'admin@gmail.com', '$2y$10$cOKXe1aI5pgatJ.6h5pVxOH4oPltZah7YOf8GuVNeMfRo66vhcSdm', 'admin', 'admin', '2023-11-17 01:20:03', '2023-11-17 01:20:03'),
-(2, 'user@gmail.com', '$2y$10$fkxNOI27YwkKs0s67wUOWOqoELQSmDz/I5P24WpeJyzEdx7ggC1g6', 'user', 'user', '2023-11-17 01:20:03', '2023-11-17 01:20:03');
+(1, 'admin@gmail.com', '$2y$10$A849BRNG2VwgKpCuTDaxsOOAI1Uhy0WZeTrOpANIDoqF4tf5JkxWG', 'admin', 'admin', '2023-11-17 01:59:59', '2023-11-17 01:59:59'),
+(2, 'user@gmail.com', '$2y$10$AGfBYCwlPsECfb.2.MGEbOYdBhdtBGVncAAyeEgyMijXrmCg.yoCC', 'user', 'user', '2023-11-17 01:59:59', '2023-11-17 01:59:59');
 
 --
 -- Indexes for dumped tables
@@ -278,7 +279,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=171;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=211;
 
 --
 -- AUTO_INCREMENT untuk tabel `personal_access_tokens`
