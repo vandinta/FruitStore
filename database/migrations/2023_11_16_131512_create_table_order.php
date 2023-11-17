@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('tb_order', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->string('transaction_id');
             $table->string('sub_price');
             $table->string('admin_price');
             $table->string('total_price');

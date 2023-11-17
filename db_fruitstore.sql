@@ -194,7 +194,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `password`, `username`, `role`, `created_at`, `updated_at`) VALUES
-(1, 'admin@gmail.com', '$2y$10$cOKXe1aI5pgatJ.6h5pVxOH4oPltZah7YOf8GuVNeMfRo66vhcSdm', 'admin', 'user', '2023-11-17 01:20:03', '2023-11-17 01:20:03'),
+(1, 'admin@gmail.com', '$2y$10$cOKXe1aI5pgatJ.6h5pVxOH4oPltZah7YOf8GuVNeMfRo66vhcSdm', 'admin', 'admin', '2023-11-17 01:20:03', '2023-11-17 01:20:03'),
 (2, 'user@gmail.com', '$2y$10$fkxNOI27YwkKs0s67wUOWOqoELQSmDz/I5P24WpeJyzEdx7ggC1g6', 'user', 'user', '2023-11-17 01:20:03', '2023-11-17 01:20:03');
 
 --

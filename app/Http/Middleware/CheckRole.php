@@ -3,18 +3,16 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class CheckRole
 {
-    public function handle($request, Closure $next, ...$roles)
+    public function handle(Request $request, Closure $next)
     {
-        $user = Auth::user();
-
-        if ($user && in_array($user->role, $roles)) {
+        if (auth()->user()->role === 'admin') {
             return $next($request);
         }
-
-        abort(403, 'Unauthorized.');
+        // return $next($request);
+        return redirect('/');
     }
 }

@@ -57,8 +57,13 @@ class OrderController extends Controller
             $status = 'login';
         }
 
+        $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        
+        $transaction_id = substr(str_shuffle($characters), 0, 12);
+
         $order = Order::create([
             'user_id' => auth()->user()->id,
+            'transaction_id' => $transaction_id,
             'sub_price' => $request->sub_price,
             'admin_price' => $request->admin_price,
             'total_price' => $request->total_price,
@@ -106,7 +111,7 @@ class OrderController extends Controller
 
         $params = array(
             'transaction_details' => array(
-                'order_id' => $order_id,
+                'order_id' => $transaction_id,
                 'gross_amount' => $request->total_price,
             ),
             'customer_details' => array(
@@ -131,7 +136,7 @@ class OrderController extends Controller
         $status = $notification->transaction_status;
         $order_id = $notification->order_id;
 
-        $order = Order::findOrFail($order_id);
+        $order = Order::where('transaction_id', $order_id)->first();
 
         if ($status == 'capture') {
             $order->update([
