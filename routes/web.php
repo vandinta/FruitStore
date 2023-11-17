@@ -41,7 +41,7 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/checkout', [OrderController::class, 'index'])->name('checkout');
     Route::post('/checkout', [OrderController::class, 'checkout'])->name('order');
-    Route::post('/callback', [OrderController::class, 'callback']);
+    // Route::post('/callback', [OrderController::class, 'callback']);
     
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });

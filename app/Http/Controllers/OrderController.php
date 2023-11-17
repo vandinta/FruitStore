@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Midtrans\Config;
+use Midtrans\Notification;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItems;
@@ -54,7 +56,7 @@ class OrderController extends Controller
         } else {
             $status = 'login';
         }
-        
+
         $order = Order::create([
             'user_id' => auth()->user()->id,
             'sub_price' => $request->sub_price,
@@ -76,15 +78,15 @@ class OrderController extends Controller
             ]);
 
             $product = Product::where('id', $cart[$i]['product_id'])->first();
-            
+
             $stok[$i] = $product['stok'] - $cart[$i]['qty'];
-            
+
             $input = [
                 'stok' => $stok[$i],
             ];
-            
+
             $product->update($input);
-            
+
             $tb_cart = Cart::where('id', $cart[$i]['id'])->first();
 
             $tb_cart->delete();
@@ -117,20 +119,45 @@ class OrderController extends Controller
         return view('home.order', compact('status', 'snapToken', 'order', 'no', 'listitems'));
     }
 
-    public function callback(Request $request) {
-        $serverkey = config('midtrans.server_key');
-        $hashed = hash('sha512', $request->order_id.$request->status_code.$request->gross_amount.$serverkey);
+    public function callback()
+    {
+        // Set your Merchant Server Key
+        Config::$serverKey = config('midtrans.server_key');
+        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        Config::$isProduction = false;
 
-        if ($hashed == $request->signature_key) {
-            if ($request->transaction_status == 'capture' || $request->transaction_status == 'settlement') {
-                $order = Order::where('id', $request->order_id)->first();
+        $notification = new Notification();
 
-                $input = [
-                    'status' => "paid",
-                ];
-                
-                $order->update($input);
-            }
+        $status = $notification->transaction_status;
+        $order_id = $notification->order_id;
+
+        $order = Order::findOrFail($order_id);
+
+        if ($status == 'capture') {
+            $order->update([
+                'status' => 'paid'
+            ]);
+            return redirect()->route('shop');
+        } else if ($status == 'settlement') {
+            $order->update([
+                'status' => 'paid'
+            ]);
+            return redirect()->route('shop');
+        } else if ($status == 'pending') {
+            $order->update([
+                'status' => 'unpaid'
+            ]);
+            return redirect()->route('shop');
+        } else if ($status == 'expire') {
+            $order->update([
+                'status' => 'cancel'
+            ]);
+            return redirect()->route('shop');
+        } else if ($status == 'cancel') {
+            $order->update([
+                'status' => 'cancel'
+            ]);
+            return redirect()->route('shop');
         }
     }
 }

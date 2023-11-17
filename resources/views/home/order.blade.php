@@ -87,6 +87,43 @@
               </div>
             </div>
           </div>
+          <div class="card single-accordion">
+            <div class="card-header" id="headingTwo">
+              <h5 class="mb-0">
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  Price Details
+                </button>
+              </h5>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+              <div class="card-body">
+                <div class="shipping-address-form">
+                  <table class="total-table">
+                    <thead class="total-table-head">
+                      <tr class="table-total-row">
+                        <th>Total</th>
+                        <th>Price</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="total-data">
+                        <td><strong>Sub Total: </strong></td>
+                        <td>Rp. {{ $order->sub_price }} ,-</td>
+                      </tr>
+                      <tr class="total-data">
+                        <td><strong>Administrative Costs: </strong></td>
+                        <td>Rp. {{ $order->admin_price }} ,-</td>
+                      </tr>
+                      <tr class="total-data">
+                        <td><strong>Total: </strong></td>
+                        <td>Rp. {{ $order->total_price }} ,-</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <button class="btn btn-outline-primary float-right" id="pay-button" style="margin-top: 20px; font-size: 26px; width: 85px;">Pay!</button>
@@ -124,6 +161,7 @@
       onClose: function() {
         /* You may add your own implementation here */
         alert('you closed the popup without finishing the payment');
+        window.location.replace('http://127.0.0.1:8000/shop');
       }
     })
   });

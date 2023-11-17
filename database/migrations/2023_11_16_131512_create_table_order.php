@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('sub_price');
             $table->string('admin_price');
             $table->string('total_price');
-            $table->enum('status', ['unpaid', 'paid'])->default('unpaid');
+            $table->enum('status', ['unpaid', 'paid', 'cancel'])->default('unpaid');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnUpdate()->cascadeOnDelete();
